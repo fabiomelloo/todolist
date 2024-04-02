@@ -1,35 +1,19 @@
-def adicionar_tarefa(tarefa, lista):
-    lista.append(tarefa)
-    return lista
+from flask import Flask, render_template, request, redirect, url_for
 
-def exibir_tarefas(lista):
-    if lista:
-        print("Lista de Tarefas:")
-        for i, tarefa in enumerate(lista, start=1):
-            print(f"{i}. {tarefa}")
-    else:
-        print("Nenhuma tarefa na lista.")
+app = Flask(__name__)
 
-def main():
-    todolist = []
-    
-    while True:
-        print("\n1. Adicionar Tarefa")
-        print("2. Exibir Tarefas")
-        print("3. Sair")
-        
-        escolha = input("Escolha uma opção: ")
-        
-        if escolha == '1':
-            tarefa = input("Digite a tarefa: ")
-            todolist = adicionar_tarefa(tarefa, todolist)
-        elif escolha == '2':
-            exibir_tarefas(todolist)
-        elif escolha == '3':
-            print("Saindo...")
-            break
-        else:
-            print("Opção inválida.")
-            
-if __name__ == "__main__":
-    main()
+# Lista de tarefas
+todo_list = []
+
+@app.route('/')
+def index():
+    return render_template('index.html', todo_list=todo_list)
+
+@app.route('/add', methods=['POST'])
+def add_task():
+    task = request.form['task']
+    todo_list.append(task)
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
