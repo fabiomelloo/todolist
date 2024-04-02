@@ -7,14 +7,30 @@
 </head>
 <body>
     <h1>ToDo List</h1>
-    <ul>
-        {% for task in todo_list %}
-        <li>{{ task }}</li>
-        {% endfor %}
-    </ul>
+    <div style="display: inline-block; width: 50%;">
+        <h2>Tarefas</h2>
+        <ul>
+            {% for _, task in todo_list %}
+            <li>{{ task }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div style="display: inline-block; width: 50%;">
+        <h2>Nomes</h2>
+        <ul>
+            {% for name, _ in todo_list %}
+            <li>{{ name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
     <form action="/add" method="post">
-        <input type="text" name="task" placeholder="Nova Tarefa">
-        <button type="submit">Adicionar</button>
+        <label for="task">Tarefa:</label>
+        <input type="text" id="task" name="task" placeholder="Nova Tarefa" required>
+        <br>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu Nome" required>
+        <br>
+        <button type="submit">Adicionar Tarefa e Nome</button>
     </form>
 </body>
 </html>
